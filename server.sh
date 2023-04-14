@@ -1,7 +1,7 @@
 # compiling
-javac ./src/chat/exception/ClientAlreadyRegisteredException.java \
+javac -d out ./src/chat/exception/ClientAlreadyRegisteredException.java \
   ./src/chat/server/Server.java  \
   ./src/chat/server/ServerImpl.java \
   ./src/chat/server/Main.java
 
-java -cp src chat.server.Main
+java -cp out chat.server.Main
