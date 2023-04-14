@@ -1,14 +1,12 @@
 package chat.server;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class Server {
-    public static void main(String[] args) throws RemoteException {
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 9100);
-        System.out.println("Exporting and binding chats");
-        System.out.println("Finishing initial steps...");
-        registry.rebind("RMIChat", new ChatImpl());
-    }
+public interface Server extends Remote {
+  // Enables the client to register to the chat by using an username as an id
+  public void register(String clientName) throws RemoteException;
+
+  // Sends a message to a particular user
+  public void sendMessage(String from, String to) throws RemoteException;
 }
