@@ -4,33 +4,40 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import chat.client.Client;
+import chat.exception.ClientAlreadyRegisteredException;
 
 public class ServerImpl extends UnicastRemoteObject implements Server {
-  private List<Client> clients = new ArrayList<>();
+  private List<String> clients = new ArrayList<>();
 
   public ServerImpl() throws RemoteException {
     super();
   }
 
-  public void register(String clientName) throws RemoteException {
-    Client c = getClient(clientName);
-    if (c != null)
-      throw new RemoteException("User " + clientName + " is already taken!");
-    c = new Client(clientName);
-    clients.add(c);
+  @Override
+  public void connect(String clientName) throws RemoteException, ClientAlreadyRegisteredException {
+    if (clientExists(clientName)) {
+      throw new ClientAlreadyRegisteredException();
+    }
+    this.clients.add(clientName);
+    System.out.println("Client " + clientName + " is now connected!");
   }
 
+  @Override
+  public void disconnect(String clientName) throws RemoteException {
+    clients.remove(clientName);
+    System.out.println("Client " + clientName + " has disconnected.");
+  }
+
+  @Override
   public void sendMessage(String from, String to) throws RemoteException {
 
   }
 
-  private Client getClient(String name) {
-    for (Client c : this.clients) {
-      if (c.getName() == name) {
-        return c;
-      }
+  private boolean clientExists(String name) {
+    for (String s : this.clients) {
+      if (s.equals(name))
+        return true;
     }
-    return null;
+    return false;
   }
 }
