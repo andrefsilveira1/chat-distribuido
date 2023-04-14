@@ -32,6 +32,7 @@ public class Main {
         System.out.println("It seems this username is already taken by an active user. Please, choose another.");
       }
     }
+    sc.close();
     return clientName;
   }
 
