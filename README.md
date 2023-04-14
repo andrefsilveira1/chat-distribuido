@@ -14,4 +14,4 @@ Criação de um chat utilizando programação distribuída através do Java RMI
 4. No Server execute : `javac Server.java` + `java Server`
 5. No Client, basta finalizar : `javac Client.Java` + `java Client`
 
-Ao finalizar, teremos o ambiente em execução, que consegue passar informações através do client e do server.
+Ao finalizar, teremos o ambiente em execução, que consegue passar informações através do java.client e do java.server.
